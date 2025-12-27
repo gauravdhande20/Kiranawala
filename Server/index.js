@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import dotenv from 'dotenv'
 import User from "./Model/users.js"
 import cors from "cors"
+import bcrypt from 'bcrypt'
 dotenv.config()
 
 
@@ -25,40 +26,57 @@ const PORT =3000;
 Database_conection();
 
  app.post('/signup',async (req,res)=>{
+     
+  try {
     const {name,email,password}=req.body;
+    const existingUser = await User.findOne({ email });
+
+    if (existingUser) {
+      return res.status(409).json({ message: "User already exists" });
+    }
+
+    
     const newUser=new User({
         name,
         email,
         password
     });
-    try{
    await newUser.save()
-    }
-    catch(err)
-    {
-     res.json({
-        status:err
-     })
-    }
-   
+   res.status(201).json({ message: "User registered successfully" });
+   }
+  
+   catch(err){
+   res.status(500).json({ message: "Server error" });
+   }
 
 
  });
 
- app.post('/login',async(req,res)=>{
-    const {email,password}=req.body;
-    const user=await User.findOne({email,password});
-    if(user){
-        res.json({
-            status:"ok",
-            message:"login successful"
-        })
-    }else{
-        res.json({
-            status:"error",
-            message:"Invalid email or password"
-        })
+
+ app.post("/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
     }
+
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+      return res.status(401).json({ message: "Invalid email or password" });
+    }
+
+    res.status(200).json({
+      message: "Login successful",
+      userId: user._id
+    });
+
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
 });
 
 app.listen(PORT,()=>{

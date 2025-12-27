@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom';
 import logo from '../assets/ChatGPT_Image_Dec_16__2025__01_40_16_PM-removebg-preview.png'
 import { FaSearch } from "react-icons/fa";
 import { MdWindow } from "react-icons/md";
@@ -23,14 +24,14 @@ function Navbars() {
       </div>
       {/* categories */}
        <div className="col-span-1    flex gap-2 items-center">
-       <MdWindow  className='text-white text-2xl'/>
-       <h1 className='text-white '>Categories</h1>
+       <MdWindow  className='text-white text-2xl hover:text-[#31e87a]'/>
+       <h1 className='text-white hover:text-[#31e87a]'>Categories</h1>
        </div>
         <div className="col-span-2   flex justify-evenly gap-3 items-center ">
-        <FaHeart className='text-white text-2xl' />
-         <RiAccountCircleFill className='text-white text-2xl' />
+        <FaHeart className='text-white text-2xl hover:text-[#31e87a]' />
+<Link to='/signup'> <RiAccountCircleFill className='text-white text-2xl hover:text-[#31e87a]'  /></Link>
          <div className='flex'>
-           <FaShoppingCart className='text-white text-[20px]' /><sup className='text-white'>1</sup>
+           <FaShoppingCart className='text-white text-[20px hover:text-[#31e87a]' /><sup className='text-white hover:text-[#31e87a]'>1</sup>
          </div>
         
           </div>

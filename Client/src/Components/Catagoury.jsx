@@ -7,19 +7,19 @@ import { BsArrowRightCircleFill } from "react-icons/bs";
 import BuyingCard from './BuyingCard';
 
 function Catagoury() {
-  const [catslide, setcatslide]=useState(0)
+  const [slide, setslide]=useState(0)
 
 const next=()=>{
-if(catslide==5) return false;
-setcatslide(catslide+1);
+if(slide==8) return false;
+setslide(slide+1);
 }
 
 const back=()=>{
-if (catslide==0) return false;
+if (slide==0) return false;
 
-setcatslide(catslide-1);
+setslide(slide-1);
 }
-console.log(catslide)
+// console.log(catslide)
 
   return (
     <>
@@ -53,7 +53,7 @@ console.log(catslide)
         </div>
         <div className=' flex flex-col items-center relative'>
           <div className='h-[20%] flex items-center justify-between w-[80%]'>
-            <h1 className='text-2xl font-extrabold text-amber-50 '>Trending This Week{catslide} </h1>
+            <h1 className='text-2xl font-extrabold text-amber-50 '>Trending This Week </h1>
             <div className='flex items-center gap-5'>
             <BsArrowLeftCircleFill className='text-4xl text-amber-50  hover:text-[#31e87a] cursor-pointer ' onClick={back}/>
             <BsArrowRightCircleFill className='text-4xl text-amber-50 hover:text-[#31e87a] cursor-pointer' onClick={next}/>
@@ -61,7 +61,7 @@ console.log(catslide)
           </div>
          
           </div>
-          <div className='h-full w-[150vw]  grid grid-cols-8 grid-rows-1 items-center gap-120 absolute top-12 left-10' style={{transform:`translateX(-${catslide*10}%)`}}>
+          <div className='h-full w-[150vw]  grid grid-cols-8 grid-rows-1 items-center gap-120 absolute top-12 left-10' style={{transform:`translateX(-${slide*10}%)`}}>
            {
             carddata.map(item =>{
               return(
